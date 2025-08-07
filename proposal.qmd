@@ -5,24 +5,7 @@ author:
   - name: "Isabel Howe"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: |
-    For starters, my goal to create an interactive dashboard is due to the utility I see in creating such a dashboard in my current career.
-      Creating an interactive dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find
-    it'll be a task with high future reward. I also think that an interactive dashboard is a favorable way to get the viewers interested
-      in the data.
-      Secondly, the reason I'd like to study crime in Mexico has to do with my background. I grew up spending all of my summers in Mexico, I
-      even attended kindergarten there. I experienced two very different worlds in Mexico, as, at times, I would stay at a small ranch town in the
-      mountains and at times on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there,
-      I would stay up past midnight playing kickball with the neighborhood kids and, later on in life, would attend dances with my cousins. Only
-      to walk home after in low to middle income neighborhoods. I felt very safe growing up there; however, it is common knowledge that Mexico
-      is not the safest country. That is why, when searching through databases through Kaggle's platform, "An Extensive Compilation of Criminal
-      Incidents in Mexico" piqued my interest. It's a dataset sourced from the Official Mexican Government Website. The dataset provides me an
-      opportunity to learn more about crime in Mexico. I'm mostly interested in answering whether the crime is wide-spread throughout the country
-      or located in specific pockets. I also found a dataset regarding Cartel Networks. It would be interesting to merge the dataset to see if
-      Cartel hotspots play as large of a role as one would assume.
-      As a mother who also works full time, I am concerned that I am trying to bite off more than I can handle by creating an interactive
-      dataset with little prior experience doing so. My plan of attack is to dedicate minimum an hour daily to the project. Whether
-      that's during work break or during the girl's athletic practices, prioritizing this project will be a great personal reward.
+description: " An interactive dashboard that displays criminolgy statistcs based in Mexico."
 format:
   html:
     code-tools: true
@@ -42,6 +25,29 @@ jupyter: python3
 import numpy as np
 import pandas as pd
 ```
+
+## Proposal 
+
+  My goal is to create an interactive dashboard is due to the utility I see in creating such a dashboard in my current career.
+Creating an interactive dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find
+it'll be a task with high future reward. I also think that an interactive dashboard is a favorable way to get the viewers interested
+in the data.
+
+  Secondly, the reason I'd like to study crime in Mexico has to do with my background. I grew up spending all of my summers in Mexico, I
+even attended kindergarten there. I experienced two very different worlds in Mexico, as, at times, I would stay at a small ranch town in the
+mountains and at times on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there,
+I would stay up past midnight playing kickball with the neighborhood kids and, later on in life, would attend dances with my cousins. Only
+to walk home after in low to middle income neighborhoods. I felt very safe growing up there; however, it is common knowledge that Mexico
+is not the safest country. That is why, when searching through databases through Kaggle's platform, "An Extensive Compilation of Criminal
+Incidents in Mexico" piqued my interest. It's a dataset sourced from the Official Mexican Government Website. The dataset provides me an
+opportunity to learn more about crime in Mexico. I'm mostly interested in answering whether the crime is wide-spread throughout the country
+or located in specific pockets. I also found a dataset regarding Cartel Networks. It would be interesting to merge the dataset to see if
+Cartel hotspots play as large of a role as one would assume.
+
+  As a mother who also works full time, I am concerned that I am trying to bite off more than I can handle by creating an interactive
+dataset with little prior experience doing so. My plan of attack is to dedicate minimum an hour daily to the project. Whether
+that's during work break or during the girl's athletic practices, prioritizing this project will be a great personal reward.
+
 
 ## Dataset
 
@@ -79,7 +85,8 @@ Quesiton #2: Does Cartel presence lead to a strong increase of crimes in the are
 
 ## Analysis plan
 
-- I plan to answer question 1 by creating a new vector that adds up all crimes types per each specific region and then comparing the crime rates per region. 
+- I plan to answer question 1 by creating a new vector that sums up the columns per region in Mexico. This will create a new vector displaying crimes per region. 
+I can then compare the magnitude of crime rates per region. 
 
-- I plan to answer question 2 by merging the regions with cartel presence and the vector to be created for crimes rates per region to find whether the two 
-have a strong correlation. 
+- I plan to answer question 2 by comparing the vector created above, crime per regions in Mexico, with cartel presence in such regions. I plan to create an interactive scatter plot 
+to display any possible correlation. 
