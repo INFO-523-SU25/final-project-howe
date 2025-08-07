@@ -57,7 +57,7 @@ that's during work break or during the girl's athletic practices, prioritizing t
 
 # load dataset into dataframe
 mexi_crimes = pd.read_csv('data/mexico_crime.csv')
-cartels = pd.read_csv('data/BACRIM2020_Nodes.csb')
+cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
 
 # print dataframe shapes
 print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
