@@ -8,7 +8,7 @@ author:
 description: "For starters, my goal to create an interactive dashboard is due to the utiliy I see in creating such a dashboard in my current career. 
                 Creating an interactive dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find
                 it'll be a task with high future reward. I also think that an interactive dashboard is a favorable way to get the viewers interested 
-                in the data. /n
+                in the data.
               Secondly, the reason i'd like to study crime in Mexico has to do with my background. I grew up spending all of my summers in Mexico, I
                 even attended kindergarten there. I expereinced two very different worlds in Mexico, as, at times, I would stay at a small ranch town in the 
                 mountains and at times on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there, 
@@ -39,6 +39,7 @@ jupyter: python3
 #| label: load-pkgs
 #| message: false
 import numpy as np
+import pandas as pd
 ```
 
 ## Dataset
@@ -46,16 +47,38 @@ import numpy as np
 ```{python}
 #| label: load-dataset
 #| message: false
+
+# load dataset into dataframe
+mexi_crimes = pd.read('data/mexico_crime.csv')
+cartels = pd.read('data/BACRIM2020_Nodes.csb')
+
+# print dataframe shapes
+print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
+print('Mexico Crime Statists DF Shape:', cartels.shape)
+
+#print dataframe column names
+print('Mexico Crime Statists Column Names:', mexi_crimes.columns.tolist())
+print('Mexico Crime Statists Column Names:', cartels.columns.tolist())
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+The main dataset for this project is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official government website (https://www.gob.mx/sre/en).
+This dataset is a compilation of criminal incidents reported across Mexico. The dataset is composed of 332416 rows and  9 columns. I chose this data as the criminology 
+record will be highly useful in assessing whether the crime in Mexico is evenly widespread throughout the country or clustered in certain regions. 
 
-Make sure to load the data and use inline code for some of this information.
+The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official governent branch Centro Geo. This data in this dataset was put together by piecing 
+together national and local newspapers in Mexico, along with narco blogs. The dataset is made up of 151 rows and 4 columns. I'm specifically interested in 
+State column. I would like to investigate whether there is a strong correclation to crimes and cartel hotspots. 
+
 
 ## Questions
 
-The two questions you want to answer.
+Question #1: Is the crime in Mexico evenly widespread throughout the country or is it most common in specific regions.
+
+Quesiton #2: Does Cartel presence lead to a strong increase of crimes in the area, or only caratel specific offenses. 
 
 ## Analysis plan
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+- I plan to answer question 1 by creating a new vector that adds up all crimes types per each specific region and then comparing the crime rates per region. 
+
+- I plan to answer question 2 by merging the regions with cartel presence and the vector to be created for crimes rates per region to find whether the two 
+have a strong correlation. 
