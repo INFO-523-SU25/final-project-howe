@@ -50,8 +50,8 @@ import pandas as pd
 #| message: false
 
 # load dataset into dataframe
-mexi_crimes = pd.read('data/mexico_crime.csv')
-cartels = pd.read('data/BACRIM2020_Nodes.csb')
+mexi_crimes = pd.read_csv('data/mexico_crime.csv')
+cartels = pd.read_csv('data/BACRIM2020_Nodes.csb')
 
 # print dataframe shapes
 print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
