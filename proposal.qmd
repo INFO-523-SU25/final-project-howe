@@ -44,9 +44,11 @@ opportunity to learn more about crime in Mexico. I'm mostly interested in answer
 or located in specific pockets. I also found a dataset regarding Cartel Networks. It would be interesting to merge the dataset to see if
 Cartel hotspots play as large of a role as one would assume.
 
-  As a mother who also works full time, I am concerned that I am trying to bite off more than I can handle by creating an interactive
-dataset with little prior experience doing so. My plan of attack is to dedicate minimum an hour daily to the project. Whether
-that's during work break or during the girl's athletic practices, prioritizing this project will be a great personal reward.
+My weekly plan:
+8/7-8/10  | Create statistical moduls to compare criminolgy statistics
+8/11-8/13 | Create visuals work on write up
+8/14-8/17 | Finidh up visual and write up 
+8/18-8/20 | Work on Presentation
 
 
 ## Dataset
