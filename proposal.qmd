@@ -87,12 +87,14 @@ Quesiton #2: Does Cartel presence lead to a strong increase of crimes in the are
 
 ## Analysis plan
 
-- I plan to answer question 1 by creating a new vector that sums up the columns per region in Mexico. This will create a new vector displaying crimes per state. 
-I can then compare the magnitude of crime rates per state. I plan to create a  GeoDataFrame utilizing pandas that highlights the states based on highest to 
-lowest crime. This will create a nice visual of the crime distribution throughout the coutry.  My plan is to make this an interactive visual that gives you 
-information on cartel presence when the user either hoovers or clicks on certain areas. 
+- I plan to answer question 1 by creating a new vector that sums up the columns per region in Mexico. This will create a new vector displaying crimes per state, 
+which will alow me to can compare the magnitude of crime rates per state. I plan on making and interactive bar plot to visual the data, each bar representing 
+a different state. When the user hoovers over each bar, more details will appear; such as, highest types of crime. This will create a nice visual of the crime 
+distribution throughout the coutry. 
 
-- I plan to answer question 2 by comparing the vector created above, crime per regions in Mexico, with cartel presence in such regions. At the moment, my plan is 
-to create an interactive bar plot that gives more details when the user hoovers over the bars. Depedning on how noisy the graph looks, I may only include areas with 
-the highest crime rates or areas with the most cartel presence. If time permits, I would like to make a simple interactive dashboard to aid with answering this question. 
-My plan is to have a scatter plot based on crime rates and possible amount of known cartel presence in the area. One can then select different states to take part of the visual. 
+
+- I plan to answer question 2 by comparing the vector created above, crime per state in Mexico, with cartel presence in such regions. I would like to make a simple
+interactive dashboard to aid with answering this question. My plan is to have a scatter plot based on crime rates and possible amount of known cartel presence in the area. 
+The user would then be able to select different states to take part of the visual. Depedning on how noisy the graph looks, I may only include areas with the highest crime 
+rates or areas with the most cartel presence. If time does not permit, my plan is to create an interactive scatter plot that gives more details when the user hoovers over
+the bars, instead of the dashboard. 
