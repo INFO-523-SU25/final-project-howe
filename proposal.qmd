@@ -94,4 +94,5 @@ information on cartel presence when the user either hoovers or clicks on certain
 
 - I plan to answer question 2 by comparing the vector created above, crime per regions in Mexico, with cartel presence in such regions. At the moment, my plan is 
 to create an interactive bar plot that gives more details when the user hoovers over the bars. Depedning on how noisy the graph looks, I may only include areas with 
-the highest crime rates or areas with the most cartel presence. 
+the highest crime rates or areas with the most cartel presence. If time permits, I would like to make a simple interactive dashboard to aid with answering this question. 
+My plan is to have a scatter plot based on crime rates and possible amount of known cartel presence in the area. One can then select different states to take part of the visual. 
