@@ -19,65 +19,85 @@ execute:
 jupyter: python3
 ---
 
-```{python}
-#| label: load-pkgs
-#| message: false
-import numpy as np
-import pandas as pd
-```
+
+## Intro 
+  The reason for analysing crime patterns in Mexico has to do with my background. I grew up spending all of my summers in Mexico, including
+attended kindergarten there. I experienced two very different worlds in Mexico; at times, I would stay in a small ranch town in the mountains and at times 
+on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there, nor did I stay in the safer upper class 
+neighborhoods. I felt very safe growing up there; however, it's common knowledge that Mexico is not the safest country. That is why, when searching through 
+Kaggle's platform, 'An Extensive Compilation of Criminal Incidents in Mexico' piqued my interest.
 
 ## Proposal 
-
   The goal is to create an interactive visualizations to facilitate in better understanding crime patterns in Mexico. If time permits, I plan to 
 aim a bit higher and produce and interactive dashboard. There is a great utility in creating such a dashboard in many fields. Creating an interactive 
 dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.
 I also think that an interactive dashboard, or an interactive visualization, is a favorable way to get the viewers interested in the data.
 
-  Secondly, the reason for analysing crime patterns in Mexico has to do with my background. I grew up spending all of my summers in Mexico, including
-attended kindergarten there. I experienced two very different worlds in Mexico; at times, I would stay in a small ranch town in the mountains and at times 
-on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there, nor did I stay in the safer upper class 
-neighborhoods. I felt very safe growing up there; however, it's common knowledge that Mexico is not the safest country. That is why, when searching through 
-Kaggle's platform, 'An Extensive Compilation of Criminal Incidents in Mexico' piqued my interest. It's a dataset sourced from the Official Mexican Government 
-Website. The dataset provides me anopportunity to learn more about crime in Mexico. 
+## Weekly plan:
 
+```{python}
+#| label: load-pkgs
+#| message: false
+#| echo: false
+import pandas as pd
 
-I'm mostly interested in answering whether the crime is wide-spread throughout the country
- or located in specific pockets. I also found a dataset regarding Cartel Networks. It would be interesting to merge the dataset to see if
-Cartel hotspots play as large of a role as one would assume.
+# Sample data for the timeline
+data = {
+    'Timeframe': ['08-07 to 08-10', '08-11 to 08-13', '08-14 to 08-17', '08-18 to 08-20'],
+    'Task TODO': ['Find sources on creating interactive visuals and study the data to find interesting patterns', 'Begin working on visuals and planning work up', 'Create visuals and write work up', 'Create presentation and finalize website details']
+}
 
-My weekly plan:
-8/7-8/10  | Create interactive graphs and moduls to help me compare criminolgy statistics
-8/11-8/13 | Finsih graphs and begin working on write up
-8/14-8/17 | Work on Write up finalzie website detains & organization
-8/18-8/20 | Work on Presentation
+# Create a DataFrame
+timeline_df = pd.DataFrame(data)
+
+# Display the timeline table
+print(timeline_df)
+
+```
 
 
 ## Dataset
+Two datasets will be used for this project. The main dataset  is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official 
+government website (https://www.gob.mx/sre/en). The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. The 
+criminology record will be highly useful in assessing whether the crime in Mexico is evenly widespread throughout the country or clustered in certain regions.
+The dataset consists of criminal incidents reported across Mexico from the years 2015 to 2023, offering insight into crime patterns and trends throughout 
+differnet regions in Mexico. Some columns of interest include: 'Entity' (state), 'type_of_crime', 'subtype_of_crime', and 'count'. The dataser consists of 
+332416 rows and 9 columns.
+
+The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official governent branch Centro Geo. This dataset was put together by piecing 
+national and local newspapers together, along with narco blogs. The dataset consists of 151 rows and 4 columns. I'm specifically interested in 'State' 
+and 'Group' columns. I would like to investigate whether there is a present correlation between high crimerates and high cartel presence. 
+
+Below are some quick visualizations of the datasets.
 
 ```{python}
 #| label: load-dataset
 #| message: false
+#| echo: false
 
 # load dataset into dataframe
 mexi_crimes = pd.read_csv('data/mexico_crime.csv')
 cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
 
+# remove rows with 0 counts of crime 
+mexi_crimes_filtered = mexi_crimes[mexi_crimes['count'] > 0]
+
+
+
 # print dataframe shapes
 print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
 print('Mexico Crime Statists DF Shape:', cartels.shape)
 
-#print dataframe column names
-print('Mexico Crime Statists Column Names:', mexi_crimes.columns.tolist())
-print('Mexico Crime Statists Column Names:', cartels.columns.tolist())
+#creating column to represent number of crimes per state
+mexi_crimes['crimes_per_state'] = mexi_crimes.groupby('entity')['count'].transform('sum')
+
+mexi_crimes.plot.barh(y= 'crimes_per_state', x='entity', title='Horizontal Bar Plot of Crime Count by State', figsize=(10, 6))
+plt.xlabel('State')
+plt.ylabel('Crime Count')
+plt.show()
 ```
 
-The main dataset for this project is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official government website (https://www.gob.mx/sre/en).
-This dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. The dataset is composed of 332416 rows and  9 columns. I chose 
-this data as the criminology record will be highly useful in assessing whether the crime in Mexico is evenly widespread throughout the country or clustered in certain regions. 
 
-The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official governent branch Centro Geo. This data in this dataset was put together by piecing 
-national and local newspapers together, along with narco blogs. The dataset is made up of 151 rows and 4 columns. I'm specifically interested in State/region column. I 
-would like to investigate whether there is a strong correclation to crimes and cartel hotspots. 
 
 
 ## Questions
@@ -88,13 +108,13 @@ Quesiton #2: Does Cartel presence lead to a strong increase of crimes in the are
 
 ## Analysis plan
 
-- I plan to answer question 1 by creating a new vector that sums up the columns per region in Mexico. This will create a new vector displaying crimes per state, 
+I   plan to answer question 1 by creating a new vector that sums up the columns per region in Mexico. This will create a new vector displaying crimes per state, 
 which will alow me to can compare the magnitude of crime rates per state. I plan on making and interactive bar plot to visual the data, each bar representing 
 a different state. When the user hoovers over each bar, more details will appear; such as, highest types of crime. This will create a nice visual of the crime 
 distribution throughout the coutry. 
 
-
-- I plan to answer question 2 by comparing the vector created above, crime per state in Mexico, with cartel presence in such regions. I would like to make a simple
+## Plan of attack 
+  I plan to answer question 2 by comparing the vector created above, crime per state in Mexico, with cartel presence in such regions. I would like to make a simple
 interactive dashboard to aid with answering this question. My plan is to have a scatter plot based on crime rates and possible amount of known cartel presence in the area. 
 The user would then be able to select different states to take part of the visual. Depedning on how noisy the graph looks, I may only include areas with the highest crime 
 rates or areas with the most cartel presence. If time does not permit, my plan is to create an interactive scatter plot that gives more details when the user hoovers over
