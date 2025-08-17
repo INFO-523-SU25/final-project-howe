@@ -28,20 +28,21 @@ import pandas as pd
 
 ## Proposal 
 
-  My goal is to create two interactive visualizations. If time permits, I plan to aim a bit higher and produce and interactive dashboard. 
-This due to the utility I see in creating such a dashboard in my current career. Creating an interactive dashboard is something I have never 
-pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.I also think that an interactive 
-dashboard or interactive graph is a favorable way to get the viewers interested in the data.
+  The goal is to create an interactive visualizations to facilitate in better understanding crime patterns in Mexico. If time permits, I plan to 
+aim a bit higher and produce and interactive dashboard. There is a great utility in creating such a dashboard in many fields. Creating an interactive 
+dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.
+I also think that an interactive dashboard, or an interactive visualization, is a favorable way to get the viewers interested in the data.
 
-  Secondly, the reason I'd like to study crime in Mexico has to do with my background. I grew up spending all of my summers in Mexico, I
-even attended kindergarten there. I experienced two very different worlds in Mexico, as, at times, I would stay at a small ranch town in the
-mountains and at times on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there,
-I would stay up past midnight playing kickball with the neighborhood kids and, later on in life, would attend dances with my cousins. Only
-to walk home after in low to middle income neighborhoods. I felt very safe growing up there; however, it is common knowledge that Mexico
-is not the safest country. That is why, when searching through databases through Kaggle's platform, "An Extensive Compilation of Criminal
-Incidents in Mexico" piqued my interest. It's a dataset sourced from the Official Mexican Government Website. The dataset provides me an
-opportunity to learn more about crime in Mexico. I'm mostly interested in answering whether the crime is wide-spread throughout the country
-or located in specific pockets. I also found a dataset regarding Cartel Networks. It would be interesting to merge the dataset to see if
+  Secondly, the reason for analysing crime patterns in Mexico has to do with my background. I grew up spending all of my summers in Mexico, including
+attended kindergarten there. I experienced two very different worlds in Mexico; at times, I would stay in a small ranch town in the mountains and at times 
+on the Pacific coast in a city known to hold a large tourist attraction. I did not live a sheltered life there, nor did I stay in the safer upper class 
+neighborhoods. I felt very safe growing up there; however, it's common knowledge that Mexico is not the safest country. That is why, when searching through 
+Kaggle's platform, 'An Extensive Compilation of Criminal Incidents in Mexico' piqued my interest. It's a dataset sourced from the Official Mexican Government 
+Website. The dataset provides me anopportunity to learn more about crime in Mexico. 
+
+
+I'm mostly interested in answering whether the crime is wide-spread throughout the country
+ or located in specific pockets. I also found a dataset regarding Cartel Networks. It would be interesting to merge the dataset to see if
 Cartel hotspots play as large of a role as one would assume.
 
 My weekly plan:
