@@ -1,12 +1,12 @@
 ---
-title: "Project title"
+title: "Mexico Crime Relations"
 subtitle: "INFO 523 - Summer 2025 - Final Project"
-author: "Author names"
-title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+author: "Isabel Howe"
+title-slide-attributes: 
+  data-background-image: images/free-mexico-flag-powerpoint-background_300x300.avif
   data-background-size: stretch
   data-background-opacity: "0.7"
-  data-slide-number: none
+  data-slide-number:
 format:
   revealjs:
     theme:  ['data/customtheming.scss']
@@ -51,19 +51,39 @@ mtcars['speed'] = mtcars['horsepower'] / mtcars['weight']
 penguins = sns.load_dataset('penguins').dropna()
 ```
 
-# Using Quarto for presentations
+# Intro 
 
-## Quarto
+Although crimes run high in the country of Mexico, Mexico has been welcoming approximately 45 million visitors each year, since 2019. The goal is to create an interactive visualizations and an interactive dashboard to better understanding crime patterns in Mexico.
 
--   The presentation is created using the Quarto CLI
+The interactive visual will aid in understanding the dispersity of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state.
 
--   `##` sets the start of a new slide
+## Questions to Solve
+
+1: Is the crime in Mexico evenly distributed throughout the country or is it most abundant in certain states?
+
+2: Does Cartel presence correlate to the magnitude of crimes in the area?
+
+## Dataset 
+
+Two datasets were used for this project. The main dataset is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official government website (<https://www.gob.mx/sre/en).>
+
+-   The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. For this project, the data was compiled to the years between 2020 and 2022.
+
+-    Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scope to the years 2020-2022.
+
+The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official government branch Centro Geo.
+
+-   This dataset was put together by piecing national and local newspapers together, along with Narco blogs.
+
+-   I'm specifically interested in 'State' and 'Group' columns.
+
+## 
 
 ## Layouts
 
 You can use plain text
 
-::: columns
+::::: columns
 ::: {.column width="40%"}
 -   or bullet points[^1]
 :::
@@ -71,7 +91,7 @@ You can use plain text
 ::: {.column width="60%"}
 or in two columns
 :::
-:::
+:::::
 
 [^1]: And add footnotes
 
@@ -108,7 +128,7 @@ plt.show()
 
 ## Plot and text
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Some text
 
@@ -124,7 +144,7 @@ sns.boxplot(data=penguins, x='bill_length_mm', y='species', hue='species', ax=ax
 plt.show()
 ```
 :::
-:::
+:::::
 
 # A new section...
 
@@ -165,3 +185,15 @@ Limitations:
 -   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
 
 -   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+
+    ## References 
+
+    Image credit: <https://templateready.com/products/free-flag-of-mexico-powerpoint-template-and-google-slides-theme?srsltid=AfmBOop83uRYakq1C03Te7mbqKt5WHWGXbX-trnJF1ihOFBDiz1bPv-C>
+
+    Tourism statistics: <https://roadgenius.com/statistics/tourism/mexico/>
+
+    Datasets:
+
+    -   **Mexican Crime Statistics:Comprehensive (2015-2023):** Sourced from [Gobierno de Mexico](https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva)
+
+    -   **BACRIM2020_Nodes:** Sourced form CentroGeo, GeoInt and DataLab [https://ppdata.politicadedrogas.org](https://ppdata.politicadedrogas.org/)
