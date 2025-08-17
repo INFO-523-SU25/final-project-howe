@@ -5,3 +5,5 @@
 
 /.quarto/
 _site/*
+project-final.Rproj/*
+requirements.txt/*
