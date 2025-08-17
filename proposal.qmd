@@ -5,7 +5,7 @@ author:
   - name: "Isabel Howe"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: " The goal is to create an interactive visualizations to facilitate in better understanding crime patterns in Mexico. If time permits, I plan to aim a bit higher and produce and interactive dashboard. There is a great utility in creating such a dashboard in many fields. Creating an interactive dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.I also think that an interactive dashboard, or an interactive visualization, is a favorable way to get the viewers interested in the data."
+description: " The goal is to create an interactive visualizations to better understanding crime patterns in Mexico. If time permits, I plan to aim a bit higher and produce and interactive dashboard. There is a great utility in creating such a dashboard in many fields. Creating an interactive dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.I also think that an interactive dashboard, or an interactive visualization, is a favorable way to get the viewers interested in the data."
 format:
   html:
     code-tools: true
@@ -56,15 +56,15 @@ government website (https://www.gob.mx/sre/en). The dataset is a compilation of 
 criminology record will be highly useful in assessing whether the crime in Mexico is evenly widespread throughout the country or clustered in certain regions.
 The dataset consists of criminal incidents reported across Mexico from the years 2015 to 2023, offering insight into crime patterns and trends throughout 
 differnet regions in Mexico. Some columns of interest include: 'Entity' (state), 'type_of_crime', 'subtype_of_crime', and 'count'. The original dataset
-consists of 332416 rows and 9 columns. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scooop to the years 2020-2022. 
+consists of 332416 rows and 9 columns. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scope to the years 2020-2022. 
 This will allow me to focus on the most recent crime patterns, as well as reduce the size of the dataset to make it more manageable. Also, the additional 
 dataset that will be used to compare crime rates with cartel presence, was collected in 2020, so it makes sense to focus on that time period. dataset now
-consitts of 9 columns and 66049 rows. 
+consists of 9 columns and 66049 rows. 
 
 
-The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official governent branch Centro Geo. This dataset was put together by piecing 
-national and local newspapers together, along with narco blogs. The dataset consists of 151 rows and 4 columns. I'm specifically interested in 'State' 
-and 'Group' columns. I would like to investigate whether there is a present correlation between high crimerates and high cartel presence. 
+The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official government branch Centro Geo. This dataset was put together by piecing 
+national and local newspapers together, along with Narco blogs. The dataset consists of 151 rows and 4 columns. I'm specifically interested in 'State' 
+and 'Group' columns. I would like to investigate whether there is a present correlation between high crime rates and high cartel presence. 
 
 Below are some quick visualizations of the datasets.
 
