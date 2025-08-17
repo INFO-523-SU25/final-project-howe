@@ -5,7 +5,7 @@ author:
   - name: "Isabel Howe"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: " An interactive dashboard that displays criminolgy statistcs based in Mexico."
+description: " The goal is to create an interactive visualizations to facilitate in better understanding crime patterns in Mexico. If time permits, I plan to aim a bit higher and produce and interactive dashboard. There is a great utility in creating such a dashboard in many fields. Creating an interactive dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.I also think that an interactive dashboard, or an interactive visualization, is a favorable way to get the viewers interested in the data."
 format:
   html:
     code-tools: true
@@ -27,12 +27,6 @@ on the Pacific coast in a city known to hold a large tourist attraction. I did n
 neighborhoods. I felt very safe growing up there; however, it's common knowledge that Mexico is not the safest country. That is why, when searching through 
 Kaggle's platform, 'An Extensive Compilation of Criminal Incidents in Mexico' piqued my interest.
 
-## Proposal 
-  The goal is to create an interactive visualizations to facilitate in better understanding crime patterns in Mexico. If time permits, I plan to 
-aim a bit higher and produce and interactive dashboard. There is a great utility in creating such a dashboard in many fields. Creating an interactive 
-dashboard is something I have never pushed myself to do, and so, while I may regret the extra work, I find it'll be a task with high future reward.
-I also think that an interactive dashboard, or an interactive visualization, is a favorable way to get the viewers interested in the data.
-
 ## Weekly plan:
 
 ```{python}
@@ -43,8 +37,8 @@ import pandas as pd
 
 # Sample data for the timeline
 data = {
-    'Timeframe': ['08-07 to 08-10', '08-11 to 08-13', '08-14 to 08-17', '08-18 to 08-20'],
-    'Task TODO': ['Find sources on creating interactive visuals and study the data to find interesting patterns', 'Begin working on visuals and planning work up', 'Create visuals and write work up', 'Create presentation and finalize website details']
+    'Timeframe': ['08-07 to 08-08', '08-10', '08-11 to 08-13', '08-14 to 08-17', '08-18 to 08-20'],
+    'Task': ['Find sources on creating interactive visuals', 'Study the data to find interesting patterns', 'Begin working on visuals and planning work up', 'Create visuals and write work up', 'Create presentation and finalize website details']
 }
 
 # Create a DataFrame
@@ -61,8 +55,12 @@ Two datasets will be used for this project. The main dataset  is 'Mexican Crime 
 government website (https://www.gob.mx/sre/en). The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. The 
 criminology record will be highly useful in assessing whether the crime in Mexico is evenly widespread throughout the country or clustered in certain regions.
 The dataset consists of criminal incidents reported across Mexico from the years 2015 to 2023, offering insight into crime patterns and trends throughout 
-differnet regions in Mexico. Some columns of interest include: 'Entity' (state), 'type_of_crime', 'subtype_of_crime', and 'count'. The dataser consists of 
-332416 rows and 9 columns.
+differnet regions in Mexico. Some columns of interest include: 'Entity' (state), 'type_of_crime', 'subtype_of_crime', and 'count'. The original dataset
+consists of 332416 rows and 9 columns. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scooop to the years 2020-2022. 
+This will allow me to focus on the most recent crime patterns, as well as reduce the size of the dataset to make it more manageable. Also, the additional 
+dataset that will be used to compare crime rates with cartel presence, was collected in 2020, so it makes sense to focus on that time period. dataset now
+consitts of 9 columns and 66049 rows. 
+
 
 The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official governent branch Centro Geo. This dataset was put together by piecing 
 national and local newspapers together, along with narco blogs. The dataset consists of 151 rows and 4 columns. I'm specifically interested in 'State' 
@@ -75,13 +73,12 @@ Below are some quick visualizations of the datasets.
 #| message: false
 #| echo: false
 
+import matplotlib.pyplot as plt
+
+
 # load dataset into dataframe
-mexi_crimes = pd.read_csv('data/mexico_crime.csv')
+mexi_crimes = pd.read_csv('data/mexico_crime_filtered.csv')
 cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
-
-# remove rows with 0 counts of crime 
-mexi_crimes_filtered = mexi_crimes[mexi_crimes['count'] > 0]
-
 
 
 # print dataframe shapes
@@ -89,12 +86,18 @@ print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
 print('Mexico Crime Statists DF Shape:', cartels.shape)
 
 #creating column to represent number of crimes per state
-mexi_crimes['crimes_per_state'] = mexi_crimes.groupby('entity')['count'].transform('sum')
+crimes_per_state = mexi_crimes.groupby('entity')['count'].sum().reset_index()
+crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatan', 'Quer?taro': 'Queretaro', 'Michoac?n de Ocampo': 'Michoacan de Ocampo', 'Nuevo Le?n': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosi'}) # correct punctuation in state names
+crimes_per_state = crimes_per_state[(crimes_per_state['entity'] != 'Ciudad de M?xico') & (crimes_per_state['entity'] != 'M?xico')]# Exclude as they are not a state
 
-mexi_crimes.plot.barh(y= 'crimes_per_state', x='entity', title='Horizontal Bar Plot of Crime Count by State', figsize=(10, 6))
-plt.xlabel('State')
-plt.ylabel('Crime Count')
+plt.figure(figsize=(10, 6))
+plt.barh(crimes_per_state['entity'], crimes_per_state['count'], color='darkgreen')
+plt.xlabel('Number of Crimes')
+plt.ylabel('State')
+plt.title('Total Crimes per State in Mexico (2020-2022)')
+plt.tight_layout()
 plt.show()
+
 ```
 
 
@@ -102,19 +105,19 @@ plt.show()
 
 ## Questions
 
-Question #1: Is the crime in Mexico evenly widespread throughout the country or is it most common in specific states.
+1: Is the crime in Mexico evenly distributed throughout the country or is it most abundant in certain states?
 
-Quesiton #2: Does Cartel presence lead to a strong increase of crimes in the area, or only cartel specific offenses. 
+2: Does Cartel presence correlate to a presence of crimes in the area?
+
 
 ## Analysis plan
 
-I   plan to answer question 1 by creating a new vector that sums up the columns per region in Mexico. This will create a new vector displaying crimes per state, 
-which will alow me to can compare the magnitude of crime rates per state. I plan on making and interactive bar plot to visual the data, each bar representing 
+To answer question 1, a new vector will be created to sum up the columns per state in Mexico. This new vector will sum the amount of crimes per state, 
+which will the magnitude of crime rates per state to be compared. I plan on making an interactive bar plot to visual the data, each bar representing 
 a different state. When the user hoovers over each bar, more details will appear; such as, highest types of crime. This will create a nice visual of the crime 
 distribution throughout the coutry. 
 
-## Plan of attack 
-  I plan to answer question 2 by comparing the vector created above, crime per state in Mexico, with cartel presence in such regions. I would like to make a simple
+To answer question 2, crime per state in Mexico will be compared with cartel presence in each state. I would like to make a simple
 interactive dashboard to aid with answering this question. My plan is to have a scatter plot based on crime rates and possible amount of known cartel presence in the area. 
 The user would then be able to select different states to take part of the visual. Depedning on how noisy the graph looks, I may only include areas with the highest crime 
 rates or areas with the most cartel presence. If time does not permit, my plan is to create an interactive scatter plot that gives more details when the user hoovers over
