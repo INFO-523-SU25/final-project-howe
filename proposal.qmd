@@ -87,7 +87,7 @@ print('Mexico Crime Statists DF Shape:', cartels.shape)
 
 #creating column to represent number of crimes per state
 crimes_per_state = mexi_crimes.groupby('entity')['count'].sum().reset_index()
-crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatan', 'Quer?taro': 'Queretaro', 'Michoac?n de Ocampo': 'Michoacan de Ocampo', 'Nuevo Le?n': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosi'}) # correct punctuation in state names
+crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatán', 'Quer?taro': 'Querétaro', 'Michoac?n de Ocampo': 'Michoacán', 'Nuevo León': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosí'}) # correct punctuation in state names
 crimes_per_state = crimes_per_state[(crimes_per_state['entity'] != 'Ciudad de M?xico') & (crimes_per_state['entity'] != 'M?xico')]# Exclude as they are not a state
 
 plt.figure(figsize=(10, 6))
