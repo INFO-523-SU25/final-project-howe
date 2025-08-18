@@ -24,7 +24,9 @@ execute:
 # Load packages here
 import pandas as pd
 import seaborn as sns
-
+import dash
+from dash import html, dcc
+import plotly.express as px
 ```
 
 ```{python}
@@ -51,11 +53,11 @@ mtcars['speed'] = mtcars['horsepower'] / mtcars['weight']
 penguins = sns.load_dataset('penguins').dropna()
 ```
 
-# Intro 
+# Intro
 
 Although crimes run high in the country of Mexico, Mexico has been welcoming approximately 45 million visitors each year, since 2019. The goal is to create an interactive visualizations and an interactive dashboard to better understanding crime patterns in Mexico.
 
-The interactive visual will aid in understanding the dispersity of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state.
+The interactive visual will aid in understanding the dispersity of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state. I will then run models to back up the visuals
 
 ## Questions to Solve
 
@@ -63,13 +65,15 @@ The interactive visual will aid in understanding the dispersity of crime through
 
 2: Does Cartel presence correlate to the magnitude of crimes in the area?
 
-## Dataset 
+## Dataset
 
 Two datasets were used for this project. The main dataset is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official government website (<https://www.gob.mx/sre/en).>
 
 -   The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. For this project, the data was compiled to the years between 2020 and 2022.
 
--    Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scope to the years 2020-2022.
+-   Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scope to the years 2020-2022.
+
+## Dataset continued..
 
 The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official government branch Centro Geo.
 
@@ -77,7 +81,40 @@ The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's offic
 
 -   I'm specifically interested in 'State' and 'Group' columns.
 
-## 
+## Methodology
+
+An interactive visual was created by...
+
+An interactive dashboard was created by..
+
+## Interactive Visual
+
+```{python}
+#| echo: false
+
+mexi_crimes = pd.read_csv('data/mexico_crime_filtered.csv')
+
+#creating column to represent number of crimes per state
+crimes_per_state = mexi_crimes.groupby('entity')['count'].sum().reset_index()
+# correct punctuation in state names
+crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatan', 'Quer?taro': 'Queretaro', 'Michoac?n de Ocampo': 'Michoacan de Ocampo', 'Nuevo Le?n': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosi'}) 
+# Removing Mexico and CDMX, they are not states
+crimes_per_state = crimes_per_state[(crimes_per_state['entity'] != 'Ciudad de M?xico') &(crimes_per_state['entity'] != 'M?xico')]
+#rename entity to 'State' and count to 'Crime Count'
+crimes_per_state.rename(columns={'entity': 'State','count': 'Crime Count'}, inplace = True)
+
+fig = px.bar(crimes_per_state, x="Crime Count", y="State", orientation='h')
+fig.show()
+
+```
+
+## trial
+
+```{python}
+cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
+print(crimes_per_state.head())
+print(cartels.head())
+```
 
 ## Layouts
 
@@ -186,7 +223,7 @@ Limitations:
 
 -   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
 
-    ## References 
+    ## References
 
     Image credit: <https://templateready.com/products/free-flag-of-mexico-powerpoint-template-and-google-slides-theme?srsltid=AfmBOop83uRYakq1C03Te7mbqKt5WHWGXbX-trnJF1ihOFBDiz1bPv-C>
 
