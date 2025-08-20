@@ -2,10 +2,10 @@
 title: "Project Title"
 subtitle: "INFO 523 - Final Project"
 author: 
-  - name: "Team name - Team member 1, Team member 2,..."
+  - name: "Isabel Howe"
     affiliations:
       - name: "College of Information Science, University of Arizona"
-description: "Project description"
+description: "A quick analysis on Crime patterns in Mexico"
 format:
    html:
     code-tools: true
@@ -18,6 +18,64 @@ execute:
 jupyter: python3
 ---
 
+## Intro
+
+Regardless of the high crime rates, Mexico has been welcoming approximately 45 million visitors yearly, since 2019. The goal is to create an interactive visualizations and an interactive dashboard to better understanding crime patterns in Mexico.
+
+The interactive visual will aid in understanding the dispersion of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state.
+
 ## Abstract
 
-Add project abstract here.
+The primary goal is to use pythons library to create two interactive visualizations and an interactive dashboard. These visualizations will aid in finding criminal patterns in the country of Mexico. Two datasets where used to create the interactive visualizations. One being a compilation of criminal incidents reported across Mexico, from the years 2015-2023. The second a dataset listing states in Mexico with the cartel organizations known to be present in that state. These datasets were cleaned, filtered, and aggregated together in ways that allowed to more easily create the data visualizations. From the visuals, it was clearly displayed that 1) the crimes in Mexico are not seen at the same rate per state and 2) there was no clear correlations between crime rates and the number of different cartel organizations present per state.
+
+## Datasets
+
+Two datasets were used for the purpose of this project. One being a compilation of criminal incidents reported across Mexico, from the years 2015-2023. This dataset, *Mexican Crime Statistics: Comprehensive (2015-2023)*, contains a list of all reported crimes from the year 2015-2023. It lists the crimes based on the year, month, state, type/subtype of crime, affected legal goods, and modality.
+
+The second a dataset listing states in Mexico with the cartel organizations known to be present in that state, *BACRIM2020_Nodes*.
+
+A third dataset was created by filtering the first datasets. The newly merged dataframe allowed the crime count, year, state name, and crime type to be listed in a manner that allowed for the creation of the interactive dashboard.
+
+```{python}
+#| label: load-pkgs
+#| message: false
+#| echo: false
+
+import pandas as pd 
+import matplotlib.pyplot as plt
+
+# load dataset into dataframe
+mexi_crimes = pd.read_csv('data/mexico_crime_filtered.csv')
+cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
+
+
+# print dataframe shapes
+print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
+print('Mexico Cartel DF Shape:', cartels.shape)
+print('New Dataframe Shape:', cartels.shape)
+
+```
+
+## 
+
+## Questions
+
+1: Is the crime in Mexico evenly distributed throughout the country or is it most abundant in certain states?
+
+2: Does Cartel presence correlate to a presence of crimes in the area?
+
+## Methodology
+
+Plotly was found to be the most suitable library to create interactive visualizations.
+
+**First Interactive Visual:** The first interactive visualization created is an interactive horizontal bar graph. Each bar representing a state plotted against the crime rate reported in that state from 2015-2022. The first dataset was used for this graph. To make the dataset easier to work with, I cleaned the dataset by removing any rows with zero counts of crime, condensed the years from 2015-2022 to 2019-2022, and then aggregated the crime counts per state. I was then able to use Plotly to graph the crime counts per state, from the years 2019-2022. I cleaned the graph by removing any non-state entities included in the graph and matching the grammar to match that of the other dataset used,
+
+**Second Interactive Visualization:** The second interactive visualization is an interactive scatter plot. This graph required the datasets to be merged together. To begin, the second dataset, *BACRIM2020_Nodes,* was filtered by removing each individual cartel listed per state and instead creating a new column providing a count of known cartels associated with the area. The new column, as well as the 'State' column was then merged with the 'State' and 'Count' column of the first dataset. This resulted in a DataFrame containing columns listing the crime and cartel count per state. The crime count and cartel count were then plotted against each other in a scatter plot with the state being represented by the hue.
+
+**Interactive Dashboard:** The interactive dashboard was built using Plotly's graphing library (Dash). The new dataset was created for the dashboard by aggregating and merging the first DataFrame. First, all columns but the year, entity , type_of_crime , and count were removed. The subtype count columns were aggregate to create a new column that adds up all subtype crimes committed per crime type, for each state and year. Dash app was then utilized to create a line graph that plotted the year against the crime count. Two drop-down menus were created that allow the user to choose a value for the state and crime type the user would like to see plotted on the line graph.
+
+## Results & Conclusions:
+
+The horizontal bar graph which plots each state against its corresponding crime count displays a noticeable difference in crime count per state. The states with the most crime experience a crime rate 30x higher than those with lower crime rates.
+
+The interactive scatter-plot does not present any noticeable correlations worth studying further regarding a connection to crime count and number of cartel's known to be present in the state. Further data is needed before confirming/canceling out any possible correlations. The lack of a noticeable correlation could be due to the number of cartels not being a strong indicator of cartel activity in the area. For instance.
