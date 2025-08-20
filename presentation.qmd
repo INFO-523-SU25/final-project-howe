@@ -25,8 +25,10 @@ execute:
 import pandas as pd
 import seaborn as sns
 import dash
-from dash import html, dcc
 import plotly.express as px
+from dash import Dash, html, dcc, callback, Output, Input
+from IPython.display import Markdown
+
 ```
 
 ```{python}
@@ -55,15 +57,15 @@ penguins = sns.load_dataset('penguins').dropna()
 
 # Intro
 
-Although crimes run high in the country of Mexico, Mexico has been welcoming approximately 45 million visitors each year, since 2019. The goal is to create an interactive visualizations and an interactive dashboard to better understanding crime patterns in Mexico.
+Regardless of the high crime rates, Mexico has been welcoming approximately 45 million visitors yearly, since 2019. The goal is to create an interactive visualizations and an interactive dashboard to better understanding crime patterns in Mexico.
 
-The interactive visual will aid in understanding the dispersity of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state. I will then run models to back up the visuals
+The interactive visual will aid in understanding the dispersion of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state.
 
 ## Questions to Solve
 
-1: Is the crime in Mexico evenly distributed throughout the country or is it most abundant in certain states?
+1: Is the crime in Mexico evenly distributed throughout it's states?
 
-2: Does Cartel presence correlate to the magnitude of crimes in the area?
+2: Does the number of cartel organizations present in each state correlate to the magnitude of crimes in each state?
 
 ## Dataset
 
@@ -71,7 +73,7 @@ Two datasets were used for this project. The main dataset is 'Mexican Crime Stat
 
 -   The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. For this project, the data was compiled to the years between 2020 and 2022.
 
--   Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'. To condense the dataset, I filtered out all rows with a count of 0, and reduced the scope to the years 2020-2022.
+-   Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'. To condense the dataset, I filtered out all rows with a crime count of 0, and reduced the scope to the years 2020-2022.
 
 ## Dataset continued..
 
@@ -83,9 +85,13 @@ The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's offic
 
 ## Methodology
 
-An interactive visual was created by...
+**Data Preparation:** Prepared the datasets to an appropriate format for the planned visualizations by cleaning, transforming, and aggregating both datasets.
 
-An interactive dashboard was created by..
+**Library Selection:** Selected a python visualization library that best fit the datasets to create interactive visualizations. In this case, Plotly was utilized.
+
+**Generated the Visualizations and Display:** Imported required libraries and cleaned/filtered datasets. Generated the visualizations that would best help answer the questions at hand.
+
+**Results:** Assessed the visuals created for apparent patterns.
 
 ## Interactive Visual
 
@@ -97,141 +103,88 @@ mexi_crimes = pd.read_csv('data/mexico_crime_filtered.csv')
 #creating column to represent number of crimes per state
 crimes_per_state = mexi_crimes.groupby('entity')['count'].sum().reset_index()
 # correct punctuation in state names
-crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatán', 'Quer?taro': 'Querétaro', 'Michoac?n de Ocampo': 'Michoacán', 'Nuevo León': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosí'}) 
+crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatán', 'Quer?taro': 'Querétaro', 'Michoac?n de Ocampo': 'Michoacán', 'Nuevo Le?n': 'Nuevo León', 'San Luis Potos?': 'San Luis Potosí', 'Veracruz de Ignacio de la Llave' : 'Veracruz'}) 
 # Removing Mexico and CDMX, they are not states
-crimes_per_state = crimes_per_state[(crimes_per_state['entity'] != 'Ciudad de M?xico') &(crimes_per_state['entity'] != 'M?xico')]
+crimes_per_state = crimes_per_state[(crimes_per_state['entity'] != 'Ciudad de M?xico') &(crimes_per_state['entity'] != 'M?xico') & (crimes_per_state['entity'] != 'Aguascalientes')]
 #rename entity to 'State' and count to 'Crime Count'
 crimes_per_state.rename(columns={'entity': 'State','count': 'Crime Count'}, inplace = True)
 
-fig = px.bar(crimes_per_state, x="Crime Count", y="State", orientation='h')
+fig = px.bar(crimes_per_state, x="Crime Count", y="State", orientation='h')  # create the horizontal bar graph
+#adjust axis label font size
+fig.update_layout(xaxis_title=dict(text='Crime Count', font=dict(size=28)), yaxis_title=dict(text='State', font=dict(size=28)))
 fig.show()
 
 ```
 
-## trial
+## Cartel Presence and Crime Scatterplot
 
 ```{python}
 cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
-print(crimes_per_state.head())
-print(cartels.head())
-print(cartels['State'].unique())
+
+#creating a new dataframes that counts the amount of cartels present per state
+cartel_pres = cartels['State'].value_counts().reset_index()
+cartel_pres.columns = ['State', 'Cartel Count']
+
+merged_df = pd.merge(cartel_pres, crimes_per_state, on='State', how='inner')
+
+#merged_df = px.data.gapminder()
+fig = px.scatter(merged_df, x="Cartel Count", y="Crime Count", color='State')
+fig.update_traces(marker=dict(size=15)) # making markers larger
+fig.update_layout(xaxis_title=dict(text='Cartel Count', font=dict(size=28)), yaxis_title=dict(text='Crime Count', font=dict(size=28)))
+fig.show()
+
+
 ```
 
-## Layouts
-
-You can use plain text
-
-::::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
-:::
-
-::: {.column width="60%"}
-or in two columns
-:::
-:::::
-
-[^1]: And add footnotes
-
--   like
-
--   this
-
-## Code
+## Dashboard
 
 ```{python}
-from sklearn.linear_model import LinearRegression
-import statsmodels.api as sm
-import pandas as pd
+## Interactive Dashboard
+print('An interactive dashboard to better visualize crime in Mexico per State')
 
-# Fit a linear regression model
-X = mtcars[['speed']]
-y = mtcars['mpg']
-model = LinearRegression().fit(X, y)
+Markdown("[Open Dashboard](http://localhost:8050)")
 
-# Summary of the model
-X2 = sm.add_constant(X)
-est = sm.OLS(y, X2)
-est2 = est.fit()
-print(est2.summary())
+
 ```
 
-## Plots
+## Dashboard Code Part 1
 
-```{python}
-penguins['species'] = penguins['species'].apply(lambda x: "Adelie" if x == "Adelie" else "Other")
-sns.scatterplot(data=penguins, x='flipper_length_mm', y='body_mass_g', hue='species')
-plt.show()
-```
+![](images/paste-1.png)
 
-## Plot and text
+## Dashboard Code Part 2
 
-::::: columns
-::: {.column width="50%"}
--   Some text
+![](images/paste-2.png)
 
--   goes here
-:::
+## Results
 
-::: {.column width="50%"}
-```{python}
-#| warning: false
-#| fig.width: 5.5
-fig, ax = plt.subplots(figsize=(5.5, 5.5 * 0.618))
-sns.boxplot(data=penguins, x='bill_length_mm', y='species', hue='species', ax=ax)
-plt.show()
-```
-:::
-:::::
+-   The horizontal bar graph which plots each state against its corresponding crime count displays a noticeable difference in crime count per state.
 
-# A new section...
+-   The interactive scatter-plot does not present any noticeable correlations worth studying further regarding a connection to crime count and number of cartel's known to be present in the state.
 
-## Tables
+## Wrap up
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+The crime dispersion throughout Mexico does not appear to be evenly widespread. The states with the most crime experience a crime rate 30x higher than those with lower crime rates.
 
-```{python}
-penguins.head().to_html()
-```
+As for the lack of correlation between the number of cartel's per state and the crime count, I find it necessary to dive deeper before making a clear assessment. Some data to take into further consideration would be the dominion of each cartel, as well as the size of each state. For example, Guerero has 12 associated cartels with 3.5x less crime than Nuevo Leon, a state with only one cartel organization present. It could be that the cartel in Nuevo Leon is a much larger organization that does not allow for other cartels to inhabit the area.
 
-## Images
+## References
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+Image credit: <https://templateready.com/products/free-flag-of-mexico-powerpoint-template-and-google-slides-theme?srsltid=AfmBOop83uRYakq1C03Te7mbqKt5WHWGXbX-trnJF1ihOFBDiz1bPv-C>
 
-## Math Expressions {.smaller}
+Tourism statistics: <https://roadgenius.com/statistics/tourism/mexico/>
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+Datasets:
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
+-   **Mexican Crime Statistics:Comprehensive (2015-2023):** Sourced from [Gobierno de Mexico](https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva)
 
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
+-   **BACRIM2020_Nodes:** Sourced form CentroGeo, GeoInt and DataLab [https://ppdata.politicadedrogas.org](https://ppdata.politicadedrogas.org/)
 
-Limitations:
+## References continued..
 
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+Helpful websites to help create visualizations using Plotly:
 
-2.  There should not be spaces after the opening `$` or before the closing `$`.
+-   <https://medium.com/plotly/how-to-create-a-beautiful-interactive-dashboard-layout-in-python-with-plotly-dash-a45c57bb2f3c>
 
-# Wrap up
+-   <https://dash.plotly.com/minimal-app>
 
-## Feeling adventurous?
-
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
-
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
-
-    ## References
-
-    Image credit: <https://templateready.com/products/free-flag-of-mexico-powerpoint-template-and-google-slides-theme?srsltid=AfmBOop83uRYakq1C03Te7mbqKt5WHWGXbX-trnJF1ihOFBDiz1bPv-C>
-
-    Tourism statistics: <https://roadgenius.com/statistics/tourism/mexico/>
-
-    Datasets:
-
-    -   **Mexican Crime Statistics:Comprehensive (2015-2023):** Sourced from [Gobierno de Mexico](https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva)
-
-    -   **BACRIM2020_Nodes:** Sourced form CentroGeo, GeoInt and DataLab [https://ppdata.politicadedrogas.org](https://ppdata.politicadedrogas.org/)
+-   <https://www.analyticsvidhya.com/blog/2021/10/interactive-plots-in-python-with-plotly-a-complete-guide/>
