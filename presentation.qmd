@@ -24,9 +24,7 @@ execute:
 # Load packages here
 import pandas as pd
 import seaborn as sns
-import dash
 import plotly.express as px
-from dash import Dash, html, dcc, callback, Output, Input
 from IPython.display import Markdown
 
 ```
@@ -69,7 +67,7 @@ The interactive visual will aid in understanding the dispersion of crime through
 
 ## Dataset
 
-Two datasets were used for this project. The main dataset is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official government website (<https://www.gob.mx/sre/en).>
+Two datasets were used for this project. The main dataset is *Mexican Crime Statistics: Comprehensive (2015-2023)* sourced from Mexico's official government website (<https://www.gob.mx/sre/en).>
 
 -   The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. For this project, the data was compiled to the years between 2020 and 2022.
 
@@ -77,11 +75,13 @@ Two datasets were used for this project. The main dataset is 'Mexican Crime Stat
 
 ## Dataset continued..
 
-The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's official government branch Centro Geo.
+The second dataset of interest is *BACRIM2020_Nodes* sourced from Mexico's official government branch Centro Geo.
 
 -   This dataset was put together by piecing national and local newspapers together, along with Narco blogs.
 
 -   I'm specifically interested in 'State' and 'Group' columns.
+
+A third dataset was created by filtering and aggregating the first datasets. This new dataframe allowed the crime count, year, state name, and crime type to be listed in a manner that allowed for the creation of the interactive dashboard.
 
 ## Methodology
 
@@ -96,6 +96,8 @@ The second dataset of interest is 'BACRIM2020_Nodes' sourced from Mexico's offic
 ## Interactive Visual
 
 ```{python}
+#| label: load-dataset
+#| message: false
 #| echo: false
 
 mexi_crimes = pd.read_csv('data/mexico_crime_filtered.csv')
@@ -165,7 +167,7 @@ Markdown("[Open Dashboard](http://localhost:8050)")
 
 The crime dispersion throughout Mexico does not appear to be evenly widespread. The states with the most crime experience a crime rate 30x higher than those with lower crime rates.
 
-As for the lack of correlation between the number of cartel's per state and the crime count, I find it necessary to dive deeper before making a clear assessment. Some data to take into further consideration would be the dominion of each cartel, as well as the size of each state. For example, Guerero has 12 associated cartels with 3.5x less crime than Nuevo Leon, a state with only one cartel organization present. It could be that the cartel in Nuevo Leon is a much larger organization that does not allow for other cartels to inhabit the area.
+As for the lack of correlation between the number of cartels and the crime count, it's necessary to dive deeper into the data. Some variables to consider are the dominion of each cartel and the size of each state. For example, Guerero has 12 associated cartels with 3.5x less crime than Nuevo Leon, a state with only one cartel present. It could be that the cartel in Nuevo Leon is a much larger organization that does not allow for other cartels to inhabit the area. Thus the number of cartels may not be a strong indicator for cartel activity.
 
 ## References
 

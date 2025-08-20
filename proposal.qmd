@@ -51,7 +51,7 @@ print(timeline_df)
 
 
 ## Dataset
-Two datasets will be used for this project. The main dataset  is 'Mexican Crime Statistics:Comprehensive (2015-2023)' sourced from Mexico's official 
+Two datasets will be used for this project. The main dataset  is 'Mexican Crime Statistics: Comprehensive (2015-2023)' sourced from Mexico's official 
 government website (https://www.gob.mx/sre/en). The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. The 
 criminology record will be highly useful in assessing whether the crime in Mexico is evenly widespread throughout the country or clustered in certain regions.
 The dataset consists of criminal incidents reported across Mexico from the years 2015 to 2023, offering insight into crime patterns and trends throughout 
@@ -83,7 +83,8 @@ cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
 
 # print dataframe shapes
 print('Mexico Crime Statists DF Shape:', mexi_crimes.shape)
-print('Mexico Crime Statists DF Shape:', cartels.shape)
+print('Mexico Cartels DF Shape:', cartels.shape)
+
 
 #creating column to represent number of crimes per state
 crimes_per_state = mexi_crimes.groupby('entity')['count'].sum().reset_index()
