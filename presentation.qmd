@@ -97,7 +97,7 @@ mexi_crimes = pd.read_csv('data/mexico_crime_filtered.csv')
 #creating column to represent number of crimes per state
 crimes_per_state = mexi_crimes.groupby('entity')['count'].sum().reset_index()
 # correct punctuation in state names
-crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatan', 'Quer?taro': 'Queretaro', 'Michoac?n de Ocampo': 'Michoacan de Ocampo', 'Nuevo Le?n': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosi'}) 
+crimes_per_state['entity'] =crimes_per_state['entity'].replace({'Yucat?n': 'Yucatán', 'Quer?taro': 'Querétaro', 'Michoac?n de Ocampo': 'Michoacán', 'Nuevo León': 'Nuevo Leon', 'San Luis Potos?': 'San Luis Potosí'}) 
 # Removing Mexico and CDMX, they are not states
 crimes_per_state = crimes_per_state[(crimes_per_state['entity'] != 'Ciudad de M?xico') &(crimes_per_state['entity'] != 'M?xico')]
 #rename entity to 'State' and count to 'Crime Count'
@@ -114,6 +114,7 @@ fig.show()
 cartels = pd.read_csv('data/BACRIM2020_Nodes.csv')
 print(crimes_per_state.head())
 print(cartels.head())
+print(cartels['State'].unique())
 ```
 
 ## Layouts
