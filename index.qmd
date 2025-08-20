@@ -56,8 +56,6 @@ print('New Dataframe Shape:', cartels.shape)
 
 ```
 
-## 
-
 ## Questions
 
 1: Is the crime in Mexico evenly distributed throughout the country or is it most abundant in certain states?
