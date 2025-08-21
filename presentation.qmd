@@ -71,7 +71,7 @@ Two datasets were used for this project. The main dataset is *Mexican Crime Stat
 
 -   The dataset is a compilation of criminal incidents reported across Mexico, form the years 2015-2023. For this project, the data was compiled to the years between 2020 and 2022.
 
--   Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'. To condense the dataset, I filtered out all rows with a crime count of 0, and reduced the scope to the years 2020-2022.
+-   Columns of interest include: 'Entity' (state), 'type_of_crime', and 'count'.
 
 ## Dataset continued..
 
