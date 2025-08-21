@@ -57,7 +57,7 @@ penguins = sns.load_dataset('penguins').dropna()
 
 Regardless of the high crime rates, Mexico has been welcoming approximately 45 million visitors yearly, since 2019. The goal is to create an interactive visualizations and an interactive dashboard to better understanding crime patterns in Mexico.
 
-The interactive visual will aid in understanding the dispersion of crime throughout Mexico, while the interactive dashboard will help visualize whether cartel presence correlates with crime rates per state.
+The interactive visual will aid in understanding the dispersion of crime throughout Mexico,as well as help visualize whether cartel presence correlates with crime rates per state.
 
 ## Questions to Solve
 
