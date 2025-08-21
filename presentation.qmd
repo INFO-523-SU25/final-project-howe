@@ -151,11 +151,11 @@ Markdown("[Open Dashboard](http://localhost:8050)")
 
 ## Dashboard Code Part 1
 
-![](images/paste-1.png)
+![](images/Dash_code_1.png)
 
 ## Dashboard Code Part 2
 
-![](images/paste-2.png)
+![](images/Dash_code_2.png)
 
 ## Results
 
@@ -167,7 +167,7 @@ Markdown("[Open Dashboard](http://localhost:8050)")
 
 The crime dispersion throughout Mexico does not appear to be evenly widespread. The states with the most crime experience a crime rate 30x higher than those with lower crime rates.
 
-As for the lack of correlation between the number of cartels and the crime count, it's necessary to dive deeper into the data. Some variables to consider are the dominion of each cartel and the size of each state. For example, Guerero has 12 associated cartels with 3.5x less crime than Nuevo Leon, a state with only one cartel present. It could be that the cartel in Nuevo Leon is a much larger organization that does not allow for other cartels to inhabit the area. Thus the number of cartels may not be a strong indicator for cartel activity.
+As for the lack of correlation between the number of cartels and the crime count, it's necessary to dive deeper into the data. Some variables to consider are the dominion of each cartel and the size of each state. The number of cartels may not be a strong indicator for cartel activity.
 
 ## References
 
